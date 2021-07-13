@@ -99,9 +99,9 @@ class MainWindow(Tk.Frame):
 
         # quit and convert button
         quit_and_convert_frame = Tk.Frame(self)
-        quit_and_convert_frame.grid(sticky=Tk.E, row=2, column=0)
+        quit_and_convert_frame.grid(sticky=Tk.E, row=2, column=0, padx=10, pady=10)
 
-        quit_button = Tk.Button(quit_and_convert_frame, text="Quit", command=self.root.quit).grid(row=0, column=0)
+        quit_button = Tk.Button(quit_and_convert_frame, text="Quit", command=self.root.quit).grid(row=0, column=0, padx=5)
         convert_button = Tk.Button(quit_and_convert_frame, text="Convert", command=self.on_convert).grid(row=0, column=1)
 
 
