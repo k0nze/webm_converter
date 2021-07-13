@@ -5,13 +5,14 @@ Copyright (c) 2021 Konstantin (k0nze) Lübeck
 
 import json
 import os
+import subprocess
 import ffmpeg
 import threading
 import time
 
 from consts import *
 from pathlib import Path
-
+from subprocess import check_output
 
 class JsonFileCreateException(Exception):
     """ raised when json model could not be created """
@@ -95,7 +96,7 @@ class Model():
 
     def get_output_file_path(self, input_file_path_string, output_file_directory_string):
         input_file_name = os.path.basename(input_file_path_string)
-        output_file_path_string = output_file_directory_string + "/" + os.path.splitext(input_file_name)[0] + ".webm"
+        output_file_path_string = output_file_directory_string + "\\" + os.path.splitext(input_file_name)[0] + ".webm"
         return output_file_path_string
 
     def convert_to_webm(self, input_file_path_string, output_file_path_string, log):
@@ -122,17 +123,25 @@ class Model():
             ffmpeg
             .input(self.input_file_path_string)
             .output(self.output_file_path_string, vcodec='libvpx-vp9', pix_fmt='yuva420p', crf='15', bitrate='2M')
-            .run_async(pipe_stdout=True, pipe_stderr=True)
+            #.run_async(pipe_stdout=True, pipe_stderr=True)
+            .run()
         )
 
-        out, err = process.communicate()
+        #out, err = process.communicate()
 
         self.conversion_finished = True
 
-        print(out)
-        print(err)
+        #print(out)
+        #print(err)
 
-        self.log("\n" + err.decode('utf-8'))
+        #self.log("\n" + err.decode('utf-8'))
+        self.log("\ndone")
+
+    def check_if_ffmpeg_is_installed(self):
+        process = subprocess.Popen(["where.exe", "ffmpeg"], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        return_value = process.wait()
+        return return_value == 0
 
     def start_update_log(self):
         while not self.conversion_finished:

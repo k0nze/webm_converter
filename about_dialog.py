@@ -19,7 +19,7 @@ class AboutDialog(Tk.Toplevel):
     def __init__(self, master):
         Tk.Toplevel.__init__(self, master)
 
-        self.minsize(309, 400)
+        self.minsize(200, 400)
         self.resizable(False, False)
 
         self.title("About " + NAME)

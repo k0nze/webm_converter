@@ -1,41 +1,40 @@
 # -*- mode: python ; coding: utf-8 -*-
 
-from consts import *
 
 block_cipher = None
 
 
-a = Analysis([FILE_NAME + '.py'],
-             pathex=['./webm_converter'],
+a = Analysis(['webm_converter.py'],
+             pathex=['.\\env\\Lib\\site-packages\\', 'C:\\Users\\konze\\Programming\\webm_conversion'],
              binaries=[],
-             datas=[('./images/logo_120x120.png', 'images'), ('./images/k_logo_30x30.png', 'images')],
-             hiddenimports=['PIL._tkinter_finder'],
+             datas=[],
+             hiddenimports=['PIL._tkinter_finder', 'ffmpeg-python'],
              hookspath=[],
+             hooksconfig={},
              runtime_hooks=[],
              excludes=[],
              win_no_prefer_redirects=False,
              win_private_assemblies=False,
              cipher=block_cipher,
              noarchive=False)
-
 pyz = PYZ(a.pure, a.zipped_data,
              cipher=block_cipher)
+
 exe = EXE(pyz,
           a.scripts,
+          a.binaries,
+          a.zipfiles,
+          a.datas,  
           [],
-          exclude_binaries=True,
-          name=FILE_NAME,
+          name='webm_converter',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
-          upx=True,
-          console=False )
-coll = COLLECT(exe,
-               a.binaries,
-               a.zipfiles,
-               a.datas,
-               strip=False,
-               upx=True,
-               upx_exclude=[],
-               name=FILE_NAME)
-
+          upx=False,
+          upx_exclude=[],
+          runtime_tmpdir=None,
+          console=True,
+          disable_windowed_traceback=False,
+          target_arch=None,
+          codesign_identity=None,
+          entitlements_file=None )
