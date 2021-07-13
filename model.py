@@ -6,9 +6,9 @@ Copyright (c) 2021 Konstantin (k0nze) Lübeck
 import json
 import os
 import subprocess
-import ffmpeg
 import threading
 import time
+import sys
 
 from consts import *
 from pathlib import Path
@@ -118,14 +118,9 @@ class Model():
         update_log_thread.start()
 
     def start_ffmpeg_conversion(self):
-
-        process = (
-            ffmpeg
-            .input(self.input_file_path_string)
-            .output(self.output_file_path_string, vcodec='libvpx-vp9', pix_fmt='yuva420p', crf='15', bitrate='2M')
-            #.run_async(pipe_stdout=True, pipe_stderr=True)
-            .run()
-        )
+        process = subprocess.Popen(["ffmpeg.exe\\ffmpeg.exe", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string])
+        stdout, stderr = process.communicate()
+        return_value = process.wait()
 
         #out, err = process.communicate()
 
@@ -136,12 +131,6 @@ class Model():
 
         #self.log("\n" + err.decode('utf-8'))
         self.log("\ndone")
-
-    def check_if_ffmpeg_is_installed(self):
-        process = subprocess.Popen(["where.exe", "ffmpeg"], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-        stdout, stderr = process.communicate()
-        return_value = process.wait()
-        return return_value == 0
 
     def start_update_log(self):
         while not self.conversion_finished:

@@ -123,11 +123,6 @@ class MainWindow(Tk.Frame):
             self.output_directory_path_var.set(output_directory_path_string)
 
     def on_convert(self):
-        # check if ffmpeg is installed
-        if not self.model.check_if_ffmpeg_is_installed():
-            messagebox.showerror("Error", "FFmpeg could not be found.")
-            return
-
         # check if conversion is running
         if not self.model.conversion_finished:
             messagebox.showerror("Error", "Conversion is running at the moment.")

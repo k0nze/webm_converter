@@ -5,10 +5,10 @@ block_cipher = None
 
 
 a = Analysis(['webm_converter.py'],
-             pathex=['.\\env\\Lib\\site-packages\\', 'C:\\Users\\konze\\Programming\\webm_conversion'],
-             binaries=[],
+             pathex=['C:\\Users\\konze\\Programming\\webm_conversion'],
+             binaries=[('.\\ffmpeg.exe', '.\\ffmpeg.exe')],
              datas=[],
-             hiddenimports=['PIL._tkinter_finder', 'ffmpeg-python'],
+             hiddenimports=['PIL._tkinter_finder'],
              hookspath=[],
              hooksconfig={},
              runtime_hooks=[],
