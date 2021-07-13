@@ -7,13 +7,16 @@ try:
     import Tkinter as Tk
     from Tkinter import messagebox
     from Tkinter.filedialog import askopenfilename, askdirectory
+    import Tkinter.scrolledtext as st 
 except ModuleNotFoundError:
     import tkinter as Tk
     from tkinter import messagebox
     from tkinter.filedialog import askopenfilename, askdirectory
+    import tkinter.scrolledtext as st 
 
 
 from tkinter.constants import DISABLED
+from tkinter.font import NORMAL
 from consts import *
 from about_dialog import AboutDialog
 
@@ -89,9 +92,10 @@ class MainWindow(Tk.Frame):
         ffmpeg_log_frame.rowconfigure(0, weight=1)
         ffmpeg_log_frame.columnconfigure(0, weight=1)
 
-        ffmpeg_log_text = Tk.Text(ffmpeg_log_frame)
-        ffmpeg_log_text.config(state=DISABLED)
-        ffmpeg_log_text.grid(sticky=Tk.N+Tk.E+Tk.S+Tk.W, row=0, column=0, padx=5, pady=5)
+        self.ffmpeg_log_text = st.ScrolledText(ffmpeg_log_frame)
+        self.ffmpeg_log_text.grid(sticky=Tk.N+Tk.E+Tk.S+Tk.W, row=0, column=0, padx=5, pady=5)
+        self.ffmpeg_log_text.config(state=DISABLED)
+
 
         # quit and convert button
         quit_and_convert_frame = Tk.Frame(self)
@@ -119,6 +123,11 @@ class MainWindow(Tk.Frame):
             self.output_directory_path_var.set(output_directory_path_string)
 
     def on_convert(self):
+        # check if conversion is running
+        if not self.model.conversion_finished:
+            messagebox.showerror("Error", "Conversion is running at the moment.")
+            return
+
         # check if input file is set
         if not self.input_file_set:
             messagebox.showerror("Error", "No input file selected.")
@@ -151,7 +160,18 @@ class MainWindow(Tk.Frame):
             if not overwrite:
                 return
 
-        self.model.convert_to_webm(self.input_file_path_var.get(), output_file_path_string)                
+        self.clear_ffmpeg_log()
+        self.model.convert_to_webm(self.input_file_path_var.get(), output_file_path_string, self.append_ffmpeg_log)                
+
+    def clear_ffmpeg_log(self):
+        self.ffmpeg_log_text.config(state=NORMAL)
+        self.ffmpeg_log_text.delete('1.0', Tk.END)
+        self.ffmpeg_log_text.config(state=DISABLED)
+
+    def append_ffmpeg_log(self, string):
+        self.ffmpeg_log_text.config(state=NORMAL)
+        self.ffmpeg_log_text.insert(Tk.END, string)
+        self.ffmpeg_log_text.config(state=DISABLED)
 
     def notify(self):
         pass

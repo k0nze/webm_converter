@@ -6,6 +6,8 @@ Copyright (c) 2021 Konstantin (k0nze) Lübeck
 import json
 import os
 import ffmpeg
+import threading
+import time
 
 from consts import *
 from pathlib import Path
@@ -48,7 +50,7 @@ class Model():
             except Exception as e:
                 raise DirCreationException
 
-
+        self.conversion_finished = True 
 
         # check if data.json exists
         self.json_path = Path.joinpath(self.data_path, 'data.json') 
@@ -96,11 +98,43 @@ class Model():
         output_file_path_string = output_file_directory_string + "/" + os.path.splitext(input_file_name)[0] + ".webm"
         return output_file_path_string
 
-    def convert_to_webm(self, input_file_path_string, output_file_path_string):
-        out, _ = (
+    def convert_to_webm(self, input_file_path_string, output_file_path_string, log):
+        self.input_file_path_string = input_file_path_string
+        self.output_file_path_string = output_file_path_string
+        self.log = log
+        self.conversion_finished = False
+
+        ffmpeg_thread = threading.Thread(target=self.start_ffmpeg_conversion)
+
+        ffmpeg_thread.setDaemon(True)
+        ffmpeg_thread.start()
+
+        self.log("converting")
+
+        update_log_thread = threading.Thread(target=self.start_update_log)
+
+        update_log_thread.setDaemon(True)
+        update_log_thread.start()
+
+    def start_ffmpeg_conversion(self):
+
+        process = (
             ffmpeg
-            .input(input_file_path_string)
-            .output(output_file_path_string, vcodec='libvpx-vp9', pix_fmt='yuva420p', crf='15', bitrate='2M')
-            .run(capture_stdout=True)
+            .input(self.input_file_path_string)
+            .output(self.output_file_path_string, vcodec='libvpx-vp9', pix_fmt='yuva420p', crf='15', bitrate='2M')
+            .run_async(pipe_stdout=True, pipe_stderr=True)
         )
 
+        out, err = process.communicate()
+
+        self.conversion_finished = True
+
+        print(out)
+        print(err)
+
+        self.log("\n" + err.decode('utf-8'))
+
+    def start_update_log(self):
+        while not self.conversion_finished:
+            self.log(".")
+            time.sleep(1)
