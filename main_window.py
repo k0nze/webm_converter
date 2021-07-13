@@ -41,6 +41,7 @@ class MainWindow(Tk.Frame):
 
         self.rowconfigure(0, weight=0)
         self.rowconfigure(1, weight=1)
+        self.rowconfigure(2, weight=0)
 
         self.columnconfigure(0, weight=1)
 
@@ -86,6 +87,11 @@ class MainWindow(Tk.Frame):
         ffmpeg_log_text.grid(sticky=Tk.N+Tk.E+Tk.S+Tk.W, row=0, column=0, padx=5, pady=5)
 
         # quit and convert button
+        quit_and_convert_frame = Tk.Frame(self)
+        quit_and_convert_frame.grid(sticky=Tk.E, row=2, column=0)
+
+        quit_button = Tk.Button(quit_and_convert_frame, text="Quit", command=self.root.quit).grid(row=0, column=0)
+        convert_button = Tk.Button(quit_and_convert_frame, text="Convert", command=self.on_convert).grid(row=0, column=1)
 
 
     def on_select_input_file(self):
@@ -94,8 +100,8 @@ class MainWindow(Tk.Frame):
     def on_select_output_file(self):
         print("open output file")
 
-    def on_convert_output_file(self):
-        print("open output file")
+    def on_convert(self):
+        print("convert")
 
     def notify(self):
         pass
