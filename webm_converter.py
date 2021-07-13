@@ -1,9 +1,11 @@
-import ffmpeg
+"""
+Author: Konstantin (k0nze) Lübeck
+License: BSD 3-Clause License
+Copyright (c) 2020 Konstantin (k0nze) Lübeck
+"""
 
-if __name__ == "__main__":
-    out, _ = (
-        ffmpeg
-        .input('test.mov')
-        .output('test.webm', vcodec='libvpx-vp9', pix_fmt='yuva420p', crf='15', bitrate='2M')
-        .run(capture_stdout=True)
-    )
+from controller import Controller 
+
+if __name__ == '__main__':
+    c = Controller()
+    c.run()
