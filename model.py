@@ -5,6 +5,7 @@ Copyright (c) 2021 Konstantin (k0nze) Lübeck
 
 import json
 import os
+import ffmpeg
 
 from consts import *
 from pathlib import Path
@@ -90,4 +91,16 @@ class Model():
         except Exception as e:
             raise JsonFileWriteException
 
+    def get_output_file_path(self, input_file_path_string, output_file_directory_string):
+        input_file_name = os.path.basename(input_file_path_string)
+        output_file_path_string = output_file_directory_string + "/" + os.path.splitext(input_file_name)[0] + ".webm"
+        return output_file_path_string
+
+    def convert_to_webm(self, input_file_path_string, output_file_path_string):
+        out, _ = (
+            ffmpeg
+            .input(input_file_path_string)
+            .output(output_file_path_string, vcodec='libvpx-vp9', pix_fmt='yuva420p', crf='15', bitrate='2M')
+            .run(capture_stdout=True)
+        )
 
