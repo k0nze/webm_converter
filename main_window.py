@@ -1,7 +1,6 @@
 """
 Author: Konstantin (k0nze) Lübeck
-License: BSD 3-Clause License
-Copyright (c) 2020 Konstantin (k0nze) Lübeck
+Copyright (c) 2021 Konstantin (k0nze) Lübeck
 """
 
 try:
@@ -76,9 +75,6 @@ class MainWindow(Tk.Frame):
         input_file_selection_button = Tk.Button(input_output_file_frame, text="Select", command=self.on_select_input_file).grid(sticky=Tk.W, row=1, column=2, padx=10)
 
 
-
-
-
         # ffmpeg log
         ffmpeg_log_frame = Tk.LabelFrame(self, text="FFmpeg Log")
         ffmpeg_log_frame.grid(sticky=Tk.N+Tk.E+Tk.S+Tk.W, row=1, column=0, columnspan=3, padx=5, pady=5)
@@ -88,6 +84,9 @@ class MainWindow(Tk.Frame):
 
         ffmpeg_log_text = Tk.Text(ffmpeg_log_frame)
         ffmpeg_log_text.grid(sticky=Tk.N+Tk.E+Tk.S+Tk.W, row=0, column=0, padx=5, pady=5)
+
+        # quit and convert button
+
 
     def on_select_input_file(self):
         print("open input file")
