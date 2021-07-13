@@ -22,7 +22,7 @@ class MainWindow(Tk.Frame):
         self.model.register_observer(self)
 
         self.root = root
-        self.root.minsize(200, 300)
+        #self.root.minsize(200, 300)
 
         Tk.Frame.__init__(self, self.root)
 
@@ -40,14 +40,45 @@ class MainWindow(Tk.Frame):
 
         self.menubar.add_cascade(label="File", menu=file_menu)
 
-        # print size info
-        self.root.update()   
-        print(self.root.winfo_width(), self.root.winfo_height())
+        self.rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=0)
 
+
+        # input file label
+        input_file_path_entry_label = Tk.Label(self, text="Input File:")
+        input_file_path_entry_label.grid(sticky=Tk.W, row=0, column=0, padx=10) 
+
+        self.input_file_path = Tk.StringVar() 
+        # TODO
+        self.input_file_path.set("/test/test")
+        input_file_path_entry = Tk.Entry(self, textvariable=self.input_file_path, state='readonly', justify=Tk.LEFT).grid(sticky=Tk.E+Tk.W, row=0, column=1, padx=10)
+
+        # input file selection button
+        input_file_selection_button = Tk.Button(self, text="Open Input File", command=self.on_select_input_file).grid(sticky=Tk.W, row=0, column=2, padx=10)
+
+
+        # input file label
+        output_file_path_entry_label = Tk.Label(self, text="Output File:")
+        output_file_path_entry_label.grid(sticky=Tk.W, row=1, column=0, padx=10) 
+
+        self.output_file_path = Tk.StringVar() 
+        # TODO
+        self.output_file_path.set("/test/test")
+        input_file_path_entry = Tk.Entry(self, textvariable=self.output_file_path, state='readonly', justify=Tk.LEFT).grid(sticky=Tk.E+Tk.W, row=1, column=1, padx=10)
+
+        # input file selection button
+        input_file_selection_button = Tk.Button(self, text="Select", command=self.on_select_input_file).grid(sticky=Tk.W, row=1, column=2, padx=10)
+
+
+
+    def on_select_input_file(self):
+        print("open input file")
+
+    def on_select_output_file(self):
+        print("open output file")
 
     def notify(self):
-        None
-        # TODO
+        pass
 
     def on_about(self):
         about_dialog = AboutDialog(self.root)
