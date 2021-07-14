@@ -121,7 +121,7 @@ class Model():
 
     def start_ffmpeg_conversion(self):
         if sys.platform.startswith('win32'):
-            process = subprocess.Popen(["ffmpeg.exe\\ffmpeg.exe", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string])
+            process = subprocess.Popen(["ffmpeg.exe", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string])
         elif sys.platform.startswith('linux'):
             process = subprocess.Popen(["ffmpeg", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string])
 
