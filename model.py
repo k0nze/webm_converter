@@ -14,6 +14,7 @@ import sys
 from consts import *
 from pathlib import Path
 from subprocess import check_output
+from sys import platform
 
 class JsonFileCreateException(Exception):
     """ raised when json model could not be created """
@@ -97,7 +98,7 @@ class Model():
 
     def get_output_file_path(self, input_file_path_string, output_file_directory_string):
         input_file_name = os.path.basename(input_file_path_string)
-        output_file_path_string = output_file_directory_string + "\\" + os.path.splitext(input_file_name)[0] + ".webm"
+        output_file_path_string = os.path.join(output_file_directory_string, os.path.splitext(input_file_name)[0] + ".webm")
         return output_file_path_string
 
     def convert_to_webm(self, input_file_path_string, output_file_path_string, log):
@@ -119,7 +120,11 @@ class Model():
         update_log_thread.start()
 
     def start_ffmpeg_conversion(self):
-        process = subprocess.Popen(["ffmpeg.exe\\ffmpeg.exe", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string])
+        if sys.platform.startswith('win32'):
+            process = subprocess.Popen(["ffmpeg.exe", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string])
+        elif sys.platform.startswith('linux'):
+            process = subprocess.Popen(["ffmpeg", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string])
+
         stdout, stderr = process.communicate()
         return_value = process.wait()
 
