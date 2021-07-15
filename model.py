@@ -9,7 +9,8 @@ import os
 import subprocess
 import threading
 import time
-import sys
+import time
+import shlex
 
 from consts import *
 from pathlib import Path
@@ -119,19 +120,19 @@ class Model():
         update_log_thread.start()
 
     def start_ffmpeg_conversion(self):
-        process = subprocess.Popen(["ffmpeg\\ffmpeg.exe", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string])
-        stdout, stderr = process.communicate()
-        return_value = process.wait()
+        ffmpeg_cmd = ["ffmpeg\\ffmpeg.exe", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string]
+        process = subprocess.Popen(ffmpeg_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
-        #out, err = process.communicate()
+        stdout_iterator = iter(process.stdout.readline, b"")
+
+        for line in stdout_iterator:
+            print(line) 
 
         self.conversion_finished = True
-
-        #print(out)
-        #print(err)
-
-        #self.log("\n" + err.decode('utf-8'))
         self.log("\ndone")
+
+        rc = process.poll()
+        return rc
 
     def start_update_log(self):
         while not self.conversion_finished:
