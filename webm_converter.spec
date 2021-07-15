@@ -6,7 +6,7 @@ block_cipher = None
 
 a = Analysis(['webm_converter.py'],
              pathex=['C:\\Users\\konze\\Programming\\webm_conversion'],
-             binaries=[('.\\ffmpeg.exe', '.\\ffmpeg.exe')],
+             binaries=[('.\\ffmpeg.exe', '.\\ffmpeg')],
              datas=[('./images/logo_120x120.png', 'images'), ('./images/k_logo_30x30.png', 'images'), ('licenses', 'licenses')],
              hiddenimports=['PIL._tkinter_finder'],
              hookspath=[],

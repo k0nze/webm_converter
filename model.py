@@ -119,7 +119,7 @@ class Model():
         update_log_thread.start()
 
     def start_ffmpeg_conversion(self):
-        process = subprocess.Popen(["ffmpeg.exe\\ffmpeg.exe", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string])
+        process = subprocess.Popen(["ffmpeg\\ffmpeg.exe", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string])
         stdout, stderr = process.communicate()
         return_value = process.wait()
 
