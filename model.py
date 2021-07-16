@@ -112,13 +112,6 @@ class Model():
         ffmpeg_thread.setDaemon(True)
         ffmpeg_thread.start()
 
-        self.log("converting")
-
-        update_log_thread = threading.Thread(target=self.start_update_log)
-
-        update_log_thread.setDaemon(True)
-        update_log_thread.start()
-
     def start_ffmpeg_conversion(self):
         ffmpeg_cmd = ["ffmpeg\\ffmpeg.exe", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string]
         process = subprocess.Popen(ffmpeg_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -126,15 +119,11 @@ class Model():
         stdout_iterator = iter(process.stdout.readline, b"")
 
         for line in stdout_iterator:
-            print(line) 
+            #print(line.decode('utf-8')) 
+            self.log(line.decode('utf-8'))
 
         self.conversion_finished = True
         self.log("\ndone")
 
         rc = process.poll()
         return rc
-
-    def start_update_log(self):
-        while not self.conversion_finished:
-            self.log(".")
-            time.sleep(1)

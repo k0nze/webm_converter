@@ -172,6 +172,7 @@ class MainWindow(Tk.Frame):
     def append_ffmpeg_log(self, string):
         self.ffmpeg_log_text.config(state=NORMAL)
         self.ffmpeg_log_text.insert(Tk.END, string)
+        self.ffmpeg_log_text.see(Tk.END)
         self.ffmpeg_log_text.config(state=DISABLED)
 
     def notify(self):
