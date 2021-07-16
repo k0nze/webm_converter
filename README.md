@@ -4,7 +4,7 @@ inspired by [nuttylamo's](https://github.com/nuttylmao) [Batch script](https://g
 
 ## Run
 
-Download latest release uns zip and run the `webm_conversion.exe` inside `webm_conversion` folder.
+Download latest release uns zip and run the `webm_converter.exe` inside `webm_converter` folder.
 
 ## Bundle with PyInstaller (Windows only)
 
