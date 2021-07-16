@@ -8,7 +8,7 @@ import os
 
 from pathlib import Path
 
-VERSION = "v0.1"
+VERSION = "v0.2"
 NAME = "WebM Converter"
 FILE_NAME = "webm_converter"
 
