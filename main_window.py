@@ -20,6 +20,7 @@ from tkinter.constants import DISABLED
 from tkinter.font import NORMAL
 from consts import *
 from about_dialog import AboutDialog
+from included_software_dialog import IncludedSoftwareDialog
 
 import copy
 
@@ -46,6 +47,7 @@ class MainWindow(Tk.Frame):
         # file menu
         file_menu = Tk.Menu(self.menubar)
         file_menu.add_command(label="About", command=self.on_about)
+        file_menu.add_command(label="Included Software", command=self.on_included_software)
         file_menu.add_separator()
         file_menu.add_command(label="Quit", command=self.root.quit)
 
@@ -202,3 +204,12 @@ class MainWindow(Tk.Frame):
         about_dialog.focus_set()
         about_dialog.grab_set()
         about_dialog.transient(self.root)
+
+    def on_included_software(self):
+        included_software_dialog = IncludedSoftwareDialog(self.root)
+
+        # make window modal
+        included_software_dialog.wait_visibility()
+        included_software_dialog.focus_set()
+        included_software_dialog.grab_set()
+        included_software_dialog.transient(self.root)
