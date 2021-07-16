@@ -101,11 +101,11 @@ class Model():
         output_file_path_string = output_file_directory_string + "\\" + os.path.splitext(input_file_name)[0] + ".webm"
         return output_file_path_string
 
-    def convert_to_webm(self, input_file_path_string, output_file_path_string, log):
+    def convert_to_webm(self, input_file_path_string, output_file_path_string, log, status):
         self.input_file_path_string = input_file_path_string
         self.output_file_path_string = output_file_path_string
         self.log = log
-        self.conversion_finished = False
+        self.status = status
 
         ffmpeg_thread = threading.Thread(target=self.start_ffmpeg_conversion)
 
@@ -113,17 +113,22 @@ class Model():
         ffmpeg_thread.start()
 
     def start_ffmpeg_conversion(self):
+        self.status.conversion_started()
+
         ffmpeg_cmd = ["ffmpeg\\ffmpeg.exe", "-i", self.input_file_path_string, "-c:v", "libvpx-vp9", "-pix_fmt", "yuva420p", "-crf", "15", "-b:v", "2M", self.output_file_path_string]
         process = subprocess.Popen(ffmpeg_cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
         stdout_iterator = iter(process.stdout.readline, b"")
 
         for line in stdout_iterator:
-            #print(line.decode('utf-8')) 
             self.log(line.decode('utf-8'))
 
-        self.conversion_finished = True
-        self.log("\ndone")
+        self.log("\nDone")
 
-        rc = process.poll()
-        return rc
+        return_value = process.poll()
+
+        if return_value == 0:
+            self.status.conversion_finished()
+        else:
+            self.status.conversion_failed()
+

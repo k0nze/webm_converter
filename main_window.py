@@ -67,11 +67,11 @@ class MainWindow(Tk.Frame):
         input_file_path_entry_label.grid(sticky=Tk.W, row=0, column=0, padx=10) 
 
         self.input_file_path_var = Tk.StringVar() 
-        self.input_file_path_var.set("no file selected")
+        self.input_file_path_var.set("No File Selected")
         input_file_path_entry = Tk.Entry(input_output_file_frame, textvariable=self.input_file_path_var, state='readonly', justify=Tk.LEFT).grid(sticky=Tk.E+Tk.W, row=0, column=1, padx=10)
 
         # input file selection button
-        input_file_selection_button = Tk.Button(input_output_file_frame, text="Open Input File", command=self.on_select_input_file).grid(sticky=Tk.W, row=0, column=2, padx=10)
+        input_file_selection_button = Tk.Button(input_output_file_frame, text="Open Input File", command=self.on_select_input_file).grid(sticky=Tk.W+Tk.E, row=0, column=2, padx=10)
 
 
         # input file label
@@ -79,11 +79,11 @@ class MainWindow(Tk.Frame):
         output_directory_path_entry_label.grid(sticky=Tk.W, row=1, column=0, padx=10) 
 
         self.output_directory_path_var = Tk.StringVar() 
-        self.output_directory_path_var.set("no directory selected")
+        self.output_directory_path_var.set("No Directory Selected")
         output_directory_path_entry = Tk.Entry(input_output_file_frame, textvariable=self.output_directory_path_var, state='readonly', justify=Tk.LEFT).grid(sticky=Tk.E+Tk.W, row=1, column=1, padx=10)
 
         # input file selection button
-        output_direcotry_selection_button = Tk.Button(input_output_file_frame, text="Select", command=self.on_select_output_directory).grid(sticky=Tk.W, row=1, column=2, padx=10)
+        output_direcotry_selection_button = Tk.Button(input_output_file_frame, text="Select", command=self.on_select_output_directory).grid(sticky=Tk.W+Tk.E, row=1, column=2, padx=10)
 
 
         # ffmpeg log
@@ -100,10 +100,15 @@ class MainWindow(Tk.Frame):
 
         # quit and convert button
         quit_and_convert_frame = Tk.Frame(self)
-        quit_and_convert_frame.grid(sticky=Tk.E, row=2, column=0, padx=10, pady=10)
+        quit_and_convert_frame.grid(sticky=Tk.W+Tk.E, row=2, column=0, padx=10, pady=10)
+        quit_and_convert_frame.columnconfigure(0, weight=1)
 
-        quit_button = Tk.Button(quit_and_convert_frame, text="Quit", command=self.root.quit).grid(row=0, column=0, padx=5)
-        convert_button = Tk.Button(quit_and_convert_frame, text="Convert", command=self.on_convert).grid(row=0, column=1)
+        self.conversion_status_label_var = Tk.StringVar()
+        self.conversion_status_label_var.set("")
+        conversion_status_label = Tk.Label(quit_and_convert_frame, textvariable=self.conversion_status_label_var).grid(sticky=Tk.W, row=0, column=0)
+
+        quit_button = Tk.Button(quit_and_convert_frame, text="Quit", command=self.root.quit).grid(sticky=Tk.E, row=0, column=1, padx=5)
+        convert_button = Tk.Button(quit_and_convert_frame, text="Convert", command=self.on_convert).grid(sticky=Tk.E, row=0, column=2)
 
 
     def on_select_input_file(self):
@@ -162,7 +167,7 @@ class MainWindow(Tk.Frame):
                 return
 
         self.clear_ffmpeg_log()
-        self.model.convert_to_webm(self.input_file_path_var.get(), output_file_path_string, self.append_ffmpeg_log)                
+        self.model.convert_to_webm(self.input_file_path_var.get(), output_file_path_string, self.append_ffmpeg_log, self)                
 
     def clear_ffmpeg_log(self):
         self.ffmpeg_log_text.config(state=NORMAL)
@@ -174,6 +179,17 @@ class MainWindow(Tk.Frame):
         self.ffmpeg_log_text.insert(Tk.END, string)
         self.ffmpeg_log_text.see(Tk.END)
         self.ffmpeg_log_text.config(state=DISABLED)
+
+    def conversion_started(self):
+        self.conversion_status_label_var.set("Conversion in progress ...")
+
+    def conversion_finished(self):
+        self.conversion_status_label_var.set("Conversion finished")
+        messagebox.showinfo("Info", "Conversion finished successfully.")
+
+    def conversion_failed(self):
+        self.conversion_status_label_var.set("Conversion finished")
+        messagebox.showerror("Error", "Conversion failed.")
 
     def notify(self):
         pass
