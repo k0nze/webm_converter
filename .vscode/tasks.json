@@ -6,7 +6,7 @@
 		{
 			"label": "win_pyinstaller",
 			"type": "shell",
-			"command": "python -m PyInstaller --noconfirm .\\webm_converter.spec"
+			"command": ".\\.venv\\Scripts\\activate; python -m PyInstaller --noconfirm .\\webm_converter.spec"
 		},
 		{
 			"label": "win_run_exe",
