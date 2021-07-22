@@ -6,11 +6,13 @@ Copyright (c) 2021 Konstantin (k0nze) Lübeck
 
 try:
     import Tkinter as Tk
+    from tkinter import ttk
     from Tkinter import messagebox
     from Tkinter.filedialog import askopenfilename, askdirectory
     import Tkinter.scrolledtext as st 
 except ModuleNotFoundError:
     import tkinter as Tk
+    from tkinter import ttk
     from tkinter import messagebox
     from tkinter.filedialog import askopenfilename, askdirectory
     import tkinter.scrolledtext as st 
@@ -73,7 +75,7 @@ class MainWindow(Tk.Frame):
         input_file_path_entry = Tk.Entry(input_output_file_frame, textvariable=self.input_file_path_var, state='readonly', justify=Tk.LEFT).grid(sticky=Tk.E+Tk.W, row=0, column=1, padx=10)
 
         # input file selection button
-        input_file_selection_button = Tk.Button(input_output_file_frame, text="Open Input File", command=self.on_select_input_file).grid(sticky=Tk.W+Tk.E, row=0, column=2, padx=10)
+        input_file_selection_button = ttk.Button(input_output_file_frame, text="Open Input File", command=self.on_select_input_file).grid(sticky=Tk.W+Tk.E, row=0, column=2, padx=10)
 
 
         # input file label
@@ -85,7 +87,7 @@ class MainWindow(Tk.Frame):
         output_directory_path_entry = Tk.Entry(input_output_file_frame, textvariable=self.output_directory_path_var, state='readonly', justify=Tk.LEFT).grid(sticky=Tk.E+Tk.W, row=1, column=1, padx=10)
 
         # input file selection button
-        output_direcotry_selection_button = Tk.Button(input_output_file_frame, text="Select", command=self.on_select_output_directory).grid(sticky=Tk.W+Tk.E, row=1, column=2, padx=10)
+        output_direcotry_selection_button = ttk.Button(input_output_file_frame, text="Select", command=self.on_select_output_directory).grid(sticky=Tk.W+Tk.E, row=1, column=2, padx=10)
 
 
         # ffmpeg log
@@ -109,8 +111,8 @@ class MainWindow(Tk.Frame):
         self.conversion_status_label_var.set("")
         conversion_status_label = Tk.Label(quit_and_convert_frame, textvariable=self.conversion_status_label_var).grid(sticky=Tk.W, row=0, column=0)
 
-        quit_button = Tk.Button(quit_and_convert_frame, text="Quit", command=self.root.quit).grid(sticky=Tk.E, row=0, column=1, padx=5)
-        convert_button = Tk.Button(quit_and_convert_frame, text="Convert", command=self.on_convert).grid(sticky=Tk.E, row=0, column=2)
+        quit_button = ttk.Button(quit_and_convert_frame, text="Quit", command=self.root.quit).grid(sticky=Tk.E, row=0, column=1, padx=5)
+        convert_button = ttk.Button(quit_and_convert_frame, text="Convert", command=self.on_convert).grid(sticky=Tk.E, row=0, column=2)
 
 
     def on_select_input_file(self):

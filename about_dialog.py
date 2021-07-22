@@ -6,9 +6,11 @@ Copyright (c) 2021 Konstantin (k0nze) Lübeck
 
 try:
     import Tkinter as Tk
+    from Tkinter import ttk
     import Tkinter.font as TkFont
 except ModuleNotFoundError:
     import tkinter as Tk
+    from tkinter import ttk
     import tkinter.font as TkFont
 
 from PIL import ImageTk, Image
@@ -109,7 +111,7 @@ class AboutDialog(Tk.Toplevel):
         github_link_label.bind("<Button-1>", lambda e: self.open_browser("https://github.com/k0nze/" + TODO))
 
         # Close button
-        close_button = Tk.Button(wrapper_frame, text="Close", command=self.on_close).grid(row=11, column=0, columnspan=2, pady=10)
+        close_button = ttk.Button(wrapper_frame, text="Close", command=self.on_close).grid(row=11, column=0, columnspan=2, pady=10)
 
         wrapper_frame.grid(row=0, column=0, padx=10)
 
