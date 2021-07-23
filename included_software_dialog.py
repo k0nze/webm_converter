@@ -7,11 +7,9 @@ Copyright (c) 2021 Konstantin (k0nze) Lübeck
 try:
     import Tkinter as Tk
     from Tkinter import ttk
-    import Tkinter.font as TkFont
 except ModuleNotFoundError:
     import tkinter as Tk
     from tkinter import ttk
-    import tkinter.font as TkFont
 
 class IncludedSoftwareDialog(Tk.Toplevel):
     def __init__(self, master):
@@ -23,16 +21,16 @@ class IncludedSoftwareDialog(Tk.Toplevel):
 
         self.title("Included Software")
 
-        wrapper_frame = Tk.Frame(self)
+        wrapper_frame = ttk.Frame(self)
 
         # Version
-        python_label = Tk.Label(wrapper_frame, text="Python 3.9.6 - PSF License")
+        python_label = ttk.Label(wrapper_frame, text="Python 3.9.6 - PSF License")
         python_label.grid(row=0, column=0, columnspan=2)
 
-        ffmpeg_label = Tk.Label(wrapper_frame, text="FFmpeg n4.4 - GPLv3 License")
+        ffmpeg_label = ttk.Label(wrapper_frame, text="FFmpeg n4.4 - GPLv3 License")
         ffmpeg_label.grid(row=1, column=0, columnspan=2)
 
-        pillow_label = Tk.Label(wrapper_frame, text="Pillow - HPND License")
+        pillow_label = ttk.Label(wrapper_frame, text="Pillow - HPND License")
         pillow_label.grid(row=2, column=0, columnspan=2)
 
         # Close button

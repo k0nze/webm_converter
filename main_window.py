@@ -26,8 +26,9 @@ from included_software_dialog import IncludedSoftwareDialog
 
 import copy
 
-class MainWindow(Tk.Frame):
+class MainWindow(ttk.Frame):
     def __init__(self, model, root):
+
 
         self.model = model
         self.model.register_observer(self)
@@ -38,7 +39,7 @@ class MainWindow(Tk.Frame):
 
         self.root.minsize(400, 300)
 
-        Tk.Frame.__init__(self, self.root)
+        ttk.Frame.__init__(self, self.root)
 
         self.pack(fill="both", expand=True)
 
@@ -72,7 +73,7 @@ class MainWindow(Tk.Frame):
 
         self.input_file_path_var = Tk.StringVar() 
         self.input_file_path_var.set("No File Selected")
-        input_file_path_entry = Tk.Entry(input_output_file_frame, textvariable=self.input_file_path_var, state='readonly', justify=Tk.LEFT).grid(sticky=Tk.E+Tk.W, row=0, column=1, padx=10)
+        input_file_path_entry = ttk.Entry(input_output_file_frame, textvariable=self.input_file_path_var, state='readonly', justify=Tk.LEFT).grid(sticky=Tk.E+Tk.W, row=0, column=1, padx=10)
 
         # input file selection button
         input_file_selection_button = ttk.Button(input_output_file_frame, text="Open Input File", command=self.on_select_input_file).grid(sticky=Tk.W+Tk.E, row=0, column=2, padx=10)
@@ -84,14 +85,14 @@ class MainWindow(Tk.Frame):
 
         self.output_directory_path_var = Tk.StringVar() 
         self.output_directory_path_var.set("No Directory Selected")
-        output_directory_path_entry = Tk.Entry(input_output_file_frame, textvariable=self.output_directory_path_var, state='readonly', justify=Tk.LEFT).grid(sticky=Tk.E+Tk.W, row=1, column=1, padx=10)
+        output_directory_path_entry = ttk.Entry(input_output_file_frame, textvariable=self.output_directory_path_var, state='readonly', justify=Tk.LEFT).grid(sticky=Tk.E+Tk.W, row=1, column=1, padx=10)
 
         # input file selection button
         output_direcotry_selection_button = ttk.Button(input_output_file_frame, text="Select", command=self.on_select_output_directory).grid(sticky=Tk.W+Tk.E, row=1, column=2, padx=10)
 
 
         # ffmpeg log
-        ffmpeg_log_frame = Tk.LabelFrame(self, text="FFmpeg Log")
+        ffmpeg_log_frame = ttk.LabelFrame(self, text="FFmpeg Log")
         ffmpeg_log_frame.grid(sticky=Tk.N+Tk.E+Tk.S+Tk.W, row=1, column=0, columnspan=3, padx=5, pady=5)
 
         ffmpeg_log_frame.rowconfigure(0, weight=1)
@@ -103,13 +104,13 @@ class MainWindow(Tk.Frame):
 
 
         # quit and convert button
-        quit_and_convert_frame = Tk.Frame(self)
+        quit_and_convert_frame = ttk.Frame(self)
         quit_and_convert_frame.grid(sticky=Tk.W+Tk.E, row=2, column=0, padx=10, pady=10)
         quit_and_convert_frame.columnconfigure(0, weight=1)
 
         self.conversion_status_label_var = Tk.StringVar()
         self.conversion_status_label_var.set("")
-        conversion_status_label = Tk.Label(quit_and_convert_frame, textvariable=self.conversion_status_label_var).grid(sticky=Tk.W, row=0, column=0)
+        conversion_status_label = ttk.Label(quit_and_convert_frame, textvariable=self.conversion_status_label_var).grid(sticky=Tk.W, row=0, column=0)
 
         quit_button = ttk.Button(quit_and_convert_frame, text="Quit", command=self.root.quit).grid(sticky=Tk.E, row=0, column=1, padx=5)
         convert_button = ttk.Button(quit_and_convert_frame, text="Convert", command=self.on_convert).grid(sticky=Tk.E, row=0, column=2)

@@ -27,35 +27,35 @@ class AboutDialog(Tk.Toplevel):
 
         self.title("About " + NAME)
 
-        wrapper_frame = Tk.Frame(self)
+        wrapper_frame = ttk.Frame(self)
 
         # Logo
         logo = ImageTk.PhotoImage(Image.open(IMAGES_DIR + "/logo_120x120.png"))
-        logo_label = Tk.Label(wrapper_frame)
+        logo_label = ttk.Label(wrapper_frame)
         logo_label.image = logo
         logo_label.configure(image=logo)
         logo_label.grid(row=0, column=0, columnspan=2, pady=15)
       
         # Name
         name_font_style = TkFont.Font(family="TkDefaultFont", size=12)
-        name_label = Tk.Label(wrapper_frame, text=NAME, font=name_font_style)
+        name_label = ttk.Label(wrapper_frame, text=NAME, font=name_font_style)
         name_label.grid(row=1, column=0, columnspan=2)
 
         # Version
-        version_label = Tk.Label(wrapper_frame, text="Version: " + VERSION)
+        version_label = ttk.Label(wrapper_frame, text="Version: " + VERSION)
         version_label.grid(row=2, column=0, columnspan=2)
 
         # Created by
-        konze_frame = Tk.Frame(wrapper_frame) 
+        konze_frame = ttk.Frame(wrapper_frame) 
 
         k_logo = ImageTk.PhotoImage(Image.open(IMAGES_DIR + "/k_logo_30x30.png"))
-        k_logo_label = Tk.Label(konze_frame)
+        k_logo_label = ttk.Label(konze_frame)
         k_logo_label.image = k_logo
         k_logo_label.configure(image=k_logo, cursor="hand2")
         k_logo_label.bind("<Button-1>", lambda e: self.open_browser("https://linktree.k0nze.gg"))
         k_logo_label.pack(side=Tk.LEFT)
 
-        konze_name_label = Tk.Label(konze_frame, text="Created by Konstantin (Konze) Lübeck", cursor="hand2")
+        konze_name_label = ttk.Label(konze_frame, text="Created by Konstantin (Konze) Lübeck", cursor="hand2")
         konze_name_label.bind("<Button-1>", lambda e: self.open_browser("https://linktree.k0nze.gg"))
         konze_name_label.pack(side=Tk.RIGHT)
 
@@ -63,7 +63,7 @@ class AboutDialog(Tk.Toplevel):
 
         # Links  
         # Discord
-        patreon_label = Tk.Label(wrapper_frame, text="Patreon:")
+        patreon_label = ttk.Label(wrapper_frame, text="Patreon:")
         patreon_label.grid(row=5, column=0, columnspan=1, sticky=Tk.W)
 
         patreon_link_label = Tk.Label(wrapper_frame, text="https://patreon.com/k0nze", fg="blue", cursor="hand2")
@@ -71,7 +71,7 @@ class AboutDialog(Tk.Toplevel):
         patreon_link_label.bind("<Button-1>", lambda e: self.open_browser("https://patreon.com/k0nze"))
 
         # Twitch
-        twitch_label = Tk.Label(wrapper_frame, text="Twitch:")
+        twitch_label = ttk.Label(wrapper_frame, text="Twitch:")
         twitch_label.grid(row=6, column=0, columnspan=1, sticky=Tk.W)
 
         twitch_link_label = Tk.Label(wrapper_frame, text="https://twitch.tv/k0nze", fg="blue", cursor="hand2")
@@ -79,7 +79,7 @@ class AboutDialog(Tk.Toplevel):
         twitch_link_label.bind("<Button-1>", lambda e: self.open_browser("https://twitch.tv/k0nze"))
 
         # Youtube
-        youtube_label = Tk.Label(wrapper_frame, text="Youtube:")
+        youtube_label = ttk.Label(wrapper_frame, text="Youtube:")
         youtube_label.grid(row=7, column=0, columnspan=1, sticky=Tk.W)
 
         youtube_link_label = Tk.Label(wrapper_frame, text="https://youtube.com/k0nze", fg="blue", cursor="hand2")
@@ -87,7 +87,7 @@ class AboutDialog(Tk.Toplevel):
         youtube_link_label.bind("<Button-1>", lambda e: self.open_browser("https://youtube.com/k0nze"))
 
         # Twitter
-        twitter_label = Tk.Label(wrapper_frame, text="Twitter:")
+        twitter_label = ttk.Label(wrapper_frame, text="Twitter:")
         twitter_label.grid(row=8, column=0, columnspan=1, sticky=Tk.W)
 
         twitter_link_label = Tk.Label(wrapper_frame, text="https://twitter.com/k0nze_gg", fg="blue", cursor="hand2")
@@ -95,7 +95,7 @@ class AboutDialog(Tk.Toplevel):
         twitter_link_label.bind("<Button-1>", lambda e: self.open_browser("https://twitter.com/k0nze_gg"))
 
         # TikTok
-        tiktok_label = Tk.Label(wrapper_frame, text="TikTok:")
+        tiktok_label = ttk.Label(wrapper_frame, text="TikTok:")
         tiktok_label.grid(row=9, column=0, columnspan=1, sticky=Tk.W)
 
         tiktok_link_label = Tk.Label(wrapper_frame, text="https://tiktok.com/@k0nze.gg", fg="blue", cursor="hand2")
@@ -103,7 +103,7 @@ class AboutDialog(Tk.Toplevel):
         tiktok_link_label.bind("<Button-1>", lambda e: self.open_browser("https://tiktok.com/@k0nze.gg"))
 
         # Github 
-        github_label = Tk.Label(wrapper_frame, text="GitHub:")
+        github_label = ttk.Label(wrapper_frame, text="GitHub:")
         github_label.grid(row=10, column=0, columnspan=1, sticky=Tk.W)
 
         github_link_label = Tk.Label(wrapper_frame, text="https://github.com/k0nze", fg="blue", cursor="hand2")
