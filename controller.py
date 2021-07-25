@@ -24,6 +24,7 @@ class Controller:
         self.model = Model(data_path)
 
         self.root = Tk.Tk()
+        self.root.iconbitmap('./images/logo_120x120.ico')
         self.view = View(self.model, self)
 
     def run(self):
