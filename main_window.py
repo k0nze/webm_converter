@@ -13,6 +13,7 @@ try:
 except ModuleNotFoundError:
     import tkinter as Tk
     from tkinter import ttk
+    from ttkthemes import ThemedStyle
     from tkinter import messagebox
     from tkinter.filedialog import askopenfilename, askdirectory
     import tkinter.scrolledtext as st 
@@ -34,6 +35,13 @@ class MainWindow(ttk.Frame):
         self.model.register_observer(self)
 
         self.root = root
+
+        root.tk.call('source', 'azure-dark.tcl')
+        ttk.Style().theme_use('azure-dark')
+
+        #style = ThemedStyle(root)
+        #style.set_theme('black')
+
         self.input_file_set = False
         self.output_directory_set = False
 
@@ -62,13 +70,13 @@ class MainWindow(ttk.Frame):
 
         self.columnconfigure(0, weight=1)
 
-        input_output_file_frame = Tk.Frame(self)
+        input_output_file_frame = ttk.Frame(self)
         input_output_file_frame.grid(sticky=Tk.N+Tk.E+Tk.S+Tk.W, row=0, column=0, columnspan=3, padx=5, pady=5)
 
         input_output_file_frame.columnconfigure(1, weight=1)
 
         # input file label
-        input_file_path_entry_label = Tk.Label(input_output_file_frame, text="Input File:")
+        input_file_path_entry_label = ttk.Label(input_output_file_frame, text="Input File:")
         input_file_path_entry_label.grid(sticky=Tk.W, row=0, column=0, padx=10) 
 
         self.input_file_path_var = Tk.StringVar() 
@@ -80,7 +88,7 @@ class MainWindow(ttk.Frame):
 
 
         # input file label
-        output_directory_path_entry_label = Tk.Label(input_output_file_frame, text="Output Directory:")
+        output_directory_path_entry_label = ttk.Label(input_output_file_frame, text="Output Directory:")
         output_directory_path_entry_label.grid(sticky=Tk.W, row=1, column=0, padx=10) 
 
         self.output_directory_path_var = Tk.StringVar() 
