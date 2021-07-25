@@ -15,7 +15,7 @@ class IncludedSoftwareDialog(Tk.Toplevel):
     def __init__(self, master):
         Tk.Toplevel.__init__(self, master)
 
-        self.minsize(180, 100)
+        self.minsize(190, 100)
 
         self.resizable(False, False)
 
@@ -30,11 +30,14 @@ class IncludedSoftwareDialog(Tk.Toplevel):
         ffmpeg_label = ttk.Label(wrapper_frame, text="FFmpeg n4.4 - GPLv3 License")
         ffmpeg_label.grid(row=1, column=0, columnspan=2)
 
-        pillow_label = ttk.Label(wrapper_frame, text="Pillow - HPND License")
+        pillow_label = ttk.Label(wrapper_frame, text="Pillow 8.3.1 - HPND License")
         pillow_label.grid(row=2, column=0, columnspan=2)
 
+        azure_ttk_theme = ttk.Label(wrapper_frame, text="Azure TTK Theme 1.4.1 - LGPL v2.1")
+        azure_ttk_theme.grid(row=3, column=0, columnspan=2)
+
         # Close button
-        close_button = ttk.Button(wrapper_frame, text="Close", command=self.on_close).grid(row=3, column=0, columnspan=2, pady=10)
+        close_button = ttk.Button(wrapper_frame, text="Close", command=self.on_close).grid(row=4, column=0, columnspan=2, pady=10)
 
         wrapper_frame.grid(row=0, column=0, padx=10)
 
