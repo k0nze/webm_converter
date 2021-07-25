@@ -36,8 +36,8 @@ class MainWindow(ttk.Frame):
 
         self.root = root
 
-        root.tk.call('source', 'azure-dark.tcl')
-        ttk.Style().theme_use('azure-dark')
+        root.tk.call('source', 'azure.tcl')
+        ttk.Style().theme_use('azure')
 
         #style = ThemedStyle(root)
         #style.set_theme('black')
@@ -77,14 +77,14 @@ class MainWindow(ttk.Frame):
 
         # input file label
         input_file_path_entry_label = ttk.Label(input_output_file_frame, text="Input File:")
-        input_file_path_entry_label.grid(sticky=Tk.W, row=0, column=0, padx=10) 
+        input_file_path_entry_label.grid(sticky=Tk.W, row=0, column=0, padx=10, pady=10) 
 
         self.input_file_path_var = Tk.StringVar() 
         self.input_file_path_var.set("No File Selected")
         input_file_path_entry = ttk.Entry(input_output_file_frame, textvariable=self.input_file_path_var, state='readonly', justify=Tk.LEFT).grid(sticky=Tk.E+Tk.W, row=0, column=1, padx=10)
 
         # input file selection button
-        input_file_selection_button = ttk.Button(input_output_file_frame, text="Open Input File", command=self.on_select_input_file).grid(sticky=Tk.W+Tk.E, row=0, column=2, padx=10)
+        input_file_selection_button = ttk.Button(input_output_file_frame, text="Open Input File", command=self.on_select_input_file).grid(sticky=Tk.W+Tk.E, row=0, column=2, padx=10, pady=10)
 
 
         # input file label
