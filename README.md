@@ -1,6 +1,6 @@
 # WebM Converter
 
-Follow me: ![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UClinoEvnpv_TzF4HNNaE5cQ?style=social) | ![Twitch Status](https://img.shields.io/twitch/status/k0nze?style=social) | ![Discord](https://img.shields.io/discord/713121297407672380.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2) | ![Twitter Follow](https://img.shields.io/twitter/follow/k0nze_gg?style=social) 
+Follow me: [![`[YouTube]`](https://img.shields.io/youtube/channel/subscribers/UClinoEvnpv_TzF4HNNaE5cQ?style=social)](https://youtube.com/k0nze) | [![`[Twitch]`](https://img.shields.io/twitch/status/k0nze?style=social)](https://twitch.com/k0nze) | [![`[Discord]`](https://img.shields.io/discord/713121297407672380.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2)](https://discord.k0nze.gg) | [![`[Twitter Follow]`](https://img.shields.io/twitter/follow/k0nze_gg?style=social)](https://twitter.com/k0nze_gg)
 
 Inspired by [nuttylamo's](https://github.com/nuttylmao) [Batch script](https://github.com/nuttylmao/Nutty-s-WebM-Converter) for converting video files to WebM files.
 
