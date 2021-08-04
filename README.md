@@ -1,5 +1,7 @@
 # WebM Converter
 
+Follow me: ![Twitter Follow](https://img.shields.io/twitter/follow/k0nze_gg?style=social) | ![YouTube Channel Subscribers](https://img.shields.io/youtube/channel/subscribers/UClinoEvnpv_TzF4HNNaE5cQ?style=social) | ![Twitch Status](https://img.shields.io/twitch/status/k0nze?style=social)
+
 Inspired by [nuttylamo's](https://github.com/nuttylmao) [Batch script](https://github.com/nuttylmao/Nutty-s-WebM-Converter) for converting video files to WebM files.
 
 ## Video
